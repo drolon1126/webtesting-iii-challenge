@@ -13,24 +13,14 @@ describe('<Dashboard />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('check locked starts at unlocked', () => {
-    const container = render(<Dashboard />);
-    expect(document.querySelectorAll('.led')[0].innerHTML).toBe("Unlocked");
-   })
+  it('test Dashboard', () => {
+    const {getByText} = render(<Dashboard />);
+    //check locked starts at unlocked and open starts at open
+    expect(getByText("Unlocked"));
+    expect(getByText("Open"));
 
-   it('check open starts at open', () => {
-    const container = render(<Dashboard />);
-    expect(document.querySelectorAll('.led')[1].innerHTML).toBe("Open");
-   })
-
-   it('renders display', ()=>{
-    const container = render(<Dashboard />);
+    //renders display and controls
     expect(document.querySelectorAll('.display').length).toBe(1);
-   })
-
-   it('renders controls', ()=>{
-    const container = render(<Dashboard />);
     expect(document.querySelectorAll('.controls').length).toBe(1);
    })
-
 });

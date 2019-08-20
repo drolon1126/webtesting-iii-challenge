@@ -7,45 +7,33 @@ import Display from './Display';
 afterEach(cleanup);
 
 describe('<Display />', () => {
-  it('check locked prop is false it renders unlocked', () => {
-    const container = render(<Display locked={false} closed={false}/>);
-    expect(document.querySelectorAll('.led')[0].innerHTML).toBe("Unlocked");
+  it('test unlocked open', () => {
+    const {getByText} = render(<Display locked={false} closed={false}/>);
+    
+    const lockDisp = getByText("Unlocked");
+    const openDisp = getByText("Open");
+
+    //check locked prop is false it renders unlocked and closed prop is false it renders open
+    expect(lockDisp);
+    expect(openDisp);
+
+    //check if unlocked has green class and open has green class
+    expect(lockDisp).toHaveClass('green-led');
+    expect(openDisp).toHaveClass('green-led');
    });
 
-   it('check closed prop is false it renders open', () => {
-    const container = render(<Display locked={false} closed={false}/>);
-    expect(document.querySelectorAll('.led')[1].innerHTML).toBe("Open");
+   it('test locked closed', () => {
+    const {getByText} = render(<Display locked={true} closed={true}/>);
+
+    const lockDisp = getByText("Locked");
+    const openDisp = getByText("Closed");
+
+    //check locked prop is true it renders locked and closed prop is true it renders closed
+    expect(lockDisp);
+    expect(openDisp);
+
+    //check if locked has red class and closed has red class
+    expect(lockDisp).toHaveClass('red-led');
+    expect(openDisp).toHaveClass('red-led');
    });
-
-   it('check locked prop is true it renders locked', () => {
-    const container = render(<Display locked={true} closed={true}/>);
-    expect(document.querySelectorAll('.led')[0].innerHTML).toBe("Locked");
-   });
-
-   it('check closed prop is true it renders closed', () => {
-    const container = render(<Display locked={false} closed={true}/>);
-    expect(document.querySelectorAll('.led')[1].innerHTML).toBe("Closed");
-   });
-
-   it('check if unlocked has green class', () => {
-    const {container, getByText} = render(<Display locked={false} closed={true}/>);
-    expect(getByText('Unlocked')).toHaveClass('green-led');
-   });
-
-   it('check if locked has red class', () => {
-    const {container, getByText} = render(<Display locked={true} closed={true}/>);
-    expect(getByText('Locked')).toHaveClass('red-led');
-  });
-
-  it('check if closed has red class', () => {
-    const {container, getByText} = render(<Display locked={false} closed={true}/>);
-    expect(getByText('Closed')).toHaveClass('red-led');
-   });
-
-   it('check if open has green class', () => {
-    const {container, getByText} = render(<Display locked={false} closed={false}/>);
-    expect(getByText('Open')).toHaveClass('green-led');
-  });
-
-   
 })
